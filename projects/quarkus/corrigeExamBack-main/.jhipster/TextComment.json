@@ -1,0 +1,38 @@
+{
+  "name": "TextComment",
+  "fields": [
+    {
+      "fieldName": "text",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "zonegeneratedid",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "studentResponse",
+      "otherEntityRelationshipName": "textcomments",
+      "relationshipName": "studentResponse",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20220422123107",
+  "entityTableName": "text_comment",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

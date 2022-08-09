@@ -1,0 +1,34 @@
+{
+  "name": "Comments",
+  "fields": [
+    {
+      "fieldName": "zonegeneratedid",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "jsonData",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "studentResponse",
+      "otherEntityRelationshipName": "comments",
+      "relationshipName": "studentResponse",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20220426094348",
+  "entityTableName": "comments",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

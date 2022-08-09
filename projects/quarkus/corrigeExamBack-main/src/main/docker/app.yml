@@ -1,0 +1,24 @@
+version: '2'
+services:
+  gradescopeistic-app:
+    image: barais/grade-scope-istic
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://gradescopeistic-mysql:3306/gradescopeistic?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+    restart: always
+    ports:
+      - 8080:8080
+#    links:
+#      - gradescopeistic-mysql:gradescopeistic-mysql
+    command: ./application -Dquarkus.http.host=0.0.0.0 -Dquarkus.datasource.jdbc.url=jdbc:mysql://gradescopeistic-mysql:3306/gradeScopeIstic?useUnicode=true&characterEncoding=utf8&useSSL=false -Dquarkus.http.cors=true  -Dquarkus.http.cors.origins=https://olivier.barais.fr -Dquarkus.http.cors.methods=GET,PUT,POST,DELETE,PATCH  -Dquarkus.http.cors.headers=accept,origin,authorization,content-type,x-requested-with -Dquarkus.http.cors.exposed-headers=Content-Disposition -Dquarkus.http.cors.access-control-max-age=24H
+#    network_mode: "bridge"
+  gradescopeistic-mysql:
+    extends:
+      file: mysql.ymlaff
+      service: gradescopeistic-mysql
+#    network_mode: "bridge"
+
+

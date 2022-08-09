@@ -1,0 +1,74 @@
+{
+  "name": "StudentResponse",
+  "fields": [
+    {
+      "fieldName": "note",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "star",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "comments",
+      "otherEntityRelationshipName": "studentResponse",
+      "relationshipName": "comments"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "textComment",
+      "otherEntityRelationshipName": "studentResponse",
+      "relationshipName": "textcomments"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "gradedComment",
+      "otherEntityRelationshipName": "studentResponse",
+      "relationshipName": "gradedcomments"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "question",
+      "otherEntityRelationshipName": "studentResponse",
+      "relationshipName": "question",
+      "otherEntityField": "numero"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "examSheet",
+      "otherEntityRelationshipName": "studentResponse",
+      "relationshipName": "sheet",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "textComment",
+      "otherEntityRelationshipName": "studentResponse",
+      "relationshipName": "textcomments",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "gradedComment",
+      "otherEntityRelationshipName": "studentResponse",
+      "relationshipName": "gradedcomments",
+      "otherEntityField": "id",
+      "ownerSide": true
+    }
+  ],
+  "changelogDate": "20220426094048",
+  "entityTableName": "student_response",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

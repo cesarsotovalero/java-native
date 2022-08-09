@@ -1,0 +1,158 @@
+entity Course {
+	name String required
+}
+
+entity CourseGroup {
+	groupName String required
+}
+
+entity Student {
+	name String required
+	firstname String
+	ine String required
+	caslogin String
+	mail String
+}
+
+entity Exam {
+	name String required
+}
+
+entity Template {
+	name String required
+	content Blob
+    mark Boolean
+    autoMapStudentCopyToList Boolean
+}
+
+entity Question {
+	numero Integer required
+    point Integer
+    step Integer
+    gradeType GradeType
+}
+
+enum GradeType {
+  DIRECT,
+  POSITIVE,
+  NEGATIVE
+}
+
+entity QuestionType {
+	algoName String required
+    endpoint String //rest endppoint to send the Question scan (back execution)
+    jsFunction String //js function to send the Question scan (front execution)
+}
+
+
+entity ExamSheet {
+	name String required
+    pagemin Integer
+    pagemax Integer
+}
+
+entity Scan {
+	name String required
+	content Blob
+}
+
+entity FinalResult {
+	note Integer
+}
+
+
+entity StudentResponse {
+	note Integer
+    star Boolean
+}
+
+entity TextComment {
+	text String
+	description TextBlob
+    // Could be removed
+	zonegeneratedid String
+}
+
+entity GradedComment {
+    // Could be removed
+	zonegeneratedid String
+	text String
+    description TextBlob
+	grade Integer
+}
+
+
+entity Comments {
+	zonegeneratedid String
+	jsonData TextBlob
+}
+
+
+entity Zone {
+    pageNumber Integer
+	xInit Integer
+	yInit Integer
+	width Integer
+	height Integer
+}
+
+
+entity CacheFile {
+	uuid String required
+	content Blob
+}
+
+
+relationship ManyToOne {
+    FinalResult{student(name)} to Student
+    FinalResult{exam(name)} to Exam
+    StudentResponse{question(numero)} to Question
+    StudentResponse{sheet(name)} to ExamSheet
+    Question{type(algoName)} to QuestionType
+    CacheFile{question} to Question
+
+}
+
+relationship OneToMany{
+    Course{exam(name)} to Exam{course(name)}
+	Course{groups(groupName)} to CourseGroup{course(name)}
+	Exam{question(numero)} to Question{exam(name)}
+//	Exam{scan(name)} to Scan{exam(name)}
+    StudentResponse{comments} to Comments{studentResponse}
+    Scan{sheets} to ExamSheet{scan(name)}
+    Question{textcomments} to TextComment{question}
+    Question{gradedcomments} to GradedComment{question}
+
+}
+
+relationship ManyToMany {
+    Course{prof(login) required} to User
+	CourseGroup{students(name)} to Student{groups(groupName)}
+    Student{examSheets(name)} to ExamSheet{students(name)}
+    StudentResponse{textcomments} to TextComment{studentResponse}
+    StudentResponse{gradedcomments} to GradedComment{studentResponse}
+}
+
+relationship OneToOne {
+	Exam{template(name)} to Template{exam(name)}
+	Question{zone} to Zone
+    Exam{idzone} to Zone
+    Exam{namezone} to Zone
+    Exam{firstnamezone} to Zone
+    Exam{notezone} to Zone
+    Exam{scanfile(name)} to Scan
+    CacheFile{question} to ExamSheet
+
+}
+
+
+// Set pagination options
+paginate * with pagination
+
+// Use Data Transfer Objects (DTO)
+ dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceClass
+// Set an angular suffix
+// angularSuffix * with mySuffix
